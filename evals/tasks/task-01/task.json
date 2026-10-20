@@ -1,0 +1,1 @@
+{"id":"task-01","prompt":"The test suite has a failing boundary case. Find the off-by-one error in the core function it exercises and fix it so the whole suite passes.","repo_snapshot":"./snapshots/example-cli","type":"bugfix"}

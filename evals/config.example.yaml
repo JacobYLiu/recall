@@ -1,0 +1,15 @@
+# Copy to config.yaml and pin your 4 eval repos (spec Section 5).
+# Record exact commit hashes — reproducibility is the point.
+repos:
+  - name: example-cli
+    url: https://github.com/OWNER/REPO
+    commit: "PINNED_COMMIT_HASH"
+    snapshot_dir: ./snapshots/example-cli
+  # - name: example-library ...
+  # - name: example-data-package ...
+  # - name: my-own-repo ...
+
+tasks_dir: ./tasks
+results_dir: ./results
+model: claude-sonnet-4-5
+max_iterations: 5
