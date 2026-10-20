@@ -11,6 +11,8 @@ Every run is checkpointed to SQLite; the approval gate pauses via interrupt().
 
 from __future__ import annotations
 
+import sqlite3
+
 from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph import END, START, StateGraph
 
@@ -80,5 +82,8 @@ def build_graph(settings: Settings | None = None):
     builder.add_edge("memory_writer", END)
     builder.add_edge("budget", END)
 
-    checkpointer = SqliteSaver.from_conn_string(str(settings.checkpoints_db))
+    # SqliteSaver.from_conn_string is a context manager in current
+    # langgraph-checkpoint-sqlite — construct the saver on a real connection.
+    conn = sqlite3.connect(str(settings.checkpoints_db), check_same_thread=False)
+    checkpointer = SqliteSaver(conn)
     return builder.compile(checkpointer=checkpointer)
